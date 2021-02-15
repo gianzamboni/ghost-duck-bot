@@ -1,26 +1,24 @@
-import { BotCommand } from '../abstracts/bot-command';
-import { PhasmoDataService } from '../services/phasmo-data';
-import { StringFormatter } from '../helpers/string-formatter'
 import { Message, MessageEmbed } from 'discord.js';
-import { GhostType } from '../interfaces/ghost-type';
+
+import { Evidences } from '../db-models/evidences';
+import { GhostTypes } from '../db-models/ghost-types';
+import { BotCommand } from '../../abstracts/bot-command';
+import { StringFormatter } from '../../helpers/string-formatter'
+import { GhostType } from '../../interfaces/ghost-type';
+import { Evidence } from '../../interfaces/evidence';
 
 export class CluesCommand extends BotCommand {
 
-  private readonly phasmoDataService: PhasmoDataService;
-
-  constructor(phasmoDataService: PhasmoDataService) {
+  constructor() {
     super("clues",
     ["Given a space separated set of evidences, I will tell you all possible ghost types that you could be dealing with. The evidence can be any of the following, you may use its short name (which is shown between paranthesis):"],
     ['clue_list']);
 
-    this.phasmoDataService = phasmoDataService;
-
     this.addEvidenceToDescription();
-
   }
 
   async addEvidenceToDescription(): Promise<void> {
-    let posibleEvidence = await this.phasmoDataService.getAllEvidence();
+    let posibleEvidence = await Evidences.all();
     for(let evidence of posibleEvidence) {
       let evidenceName = StringFormatter.format(evidence.name, ['capitalize']);
       let evidenceShort =  StringFormatter.format(evidence.short_name, ['italic']);;
@@ -46,34 +44,44 @@ export class CluesCommand extends BotCommand {
     }
   }
 
-  private async replyWithAdvice(message: Message, evidence: string[]) {
-    let posibleGhosts = await this.phasmoDataService.getGhostAdviceFromEvidence(evidence)
-    let missingEvidence = await this.getMissingEvidenceFor(posibleGhosts, evidence);
+  private async replyWithAdvice(message: Message, evidences: string[]) {
+    let posibleGhosts = await GhostTypes.thatGive(evidences, {
+      attr: ['name', 'advice']
+    });
+
+    let missingEvidence = await this.getMissingEvidenceFor(posibleGhosts, evidences);
     let renderedMessage = this.renderAdvidceMessage(posibleGhosts, missingEvidence);
     message.channel.send(renderedMessage);
   }
 
   private async replyWithoutAdvice(message: Message, evidence: string) {
-    let posibleGhosts = await this.phasmoDataService.getGhostNameFromEvidenceShortName(evidence);
+    let posibleGhosts = await GhostTypes.thatGive([evidence], {
+      attr: ['name']
+    });
+    
     let evidences = await this.getMissingEvidenceFor(posibleGhosts, [evidence]);
     let renderedMessage = this.renderSimpleListEmbed(posibleGhosts, evidences);
     message.channel.send(renderedMessage);
-    /*let missingClues = await this.phasmoDataService.getEvidenceeee
-    message.channel.send(JSON.stringify(posibleGhost));*/
   }
 
-  private async getMissingEvidenceFor(ghosts: GhostType[], evidence: string[]){
-    let evidencePromises: Promise<string[]>[] = [];
+  private async getMissingEvidenceFor(ghosts: GhostType[], knownEvidences: string[]): Promise<Evidence[][]> {
+    let promises: Promise<Evidence[]>[] = [];
 
     for(let ghostType of ghosts) {
-      let evidencePromise = this.phasmoDataService.getEvidenceNamesOfIdExceptFor(ghostType.id, evidence);
-      evidencePromises.push(evidencePromise);
+      let promise = Evidences.givenBy(ghostType);
+      promises.push(promise);
     }
 
-    return await Promise.all(evidencePromises);
+    let missingEvidence = [];
+    for(let promise of promises ) {
+      let evidences = (await promise).filter( evidence => knownEvidences.indexOf(evidence.short_name) < 0 );
+      missingEvidence.push(evidences)
+    }
+    return missingEvidence;
+    
   }
 
-  private renderSimpleListEmbed(ghosts: GhostType[], evidences: string[][]): MessageEmbed {
+  private renderSimpleListEmbed(ghosts: GhostType[], evidences: Evidence[][]): MessageEmbed {
     let message = new MessageEmbed().setColor('#666666')
       .setTitle('Aca tenes una lista de lo que podria ser :rolling_eyes:')
       .addFields([
@@ -95,14 +103,14 @@ export class CluesCommand extends BotCommand {
     return message;
   }
 
-  private renderAdvidceMessage(ghosts: GhostType[], evidences: string[][]): MessageEmbed {
+  private renderAdvidceMessage(ghosts: GhostType[], evidences: Evidence[][]): MessageEmbed {
     let message = new MessageEmbed().setColor('#666666')
       .setTitle('Posibles ghosts')
       .setDescription('Given the clues you gave me, the ghost can be one of the following:')
 
     ghosts.forEach((ghost, index) => {
 
-      let formattedEvidence = evidences[index].map((evidence) => StringFormatter.format(evidence, ['capitalize']));
+      let formattedEvidence = evidences[index].map((evidence) => StringFormatter.format(evidence.name, ['capitalize']));
       if(formattedEvidence.length === 0) formattedEvidence=["None"];
 
       message.addFields([
@@ -114,12 +122,12 @@ export class CluesCommand extends BotCommand {
     return message;
   }
 
-  private getFormatedMissingEvidence(ghost: GhostType, evidences: string[], index: number): any[] {
+  private getFormatedMissingEvidence(ghost: GhostType, evidences: Evidence[], index: number): any[] {
     let format = ['capitalize', 'italic'];
     if(index % 2 == 1) format.push('bold');
 
     let ghostName =  StringFormatter.format(ghost.name, format);
-    let capitalizedEvidence = evidences.map((evidence) => StringFormatter.format(evidence, format));
+    let capitalizedEvidence = evidences.map((evidence) => StringFormatter.format(evidence.name, format));
     return [ghostName, capitalizedEvidence]
   }
 

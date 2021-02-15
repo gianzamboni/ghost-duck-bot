@@ -1,26 +1,21 @@
 import { Message } from "discord.js";
 
+import { CluesCommand } from "./commands/clues-command";
+import { GhostCommand } from './commands/ghost-command';
+import { HelpCommand } from './commands/help-command';
 import { BotCommand } from "../abstracts/bot-command";
-import { CluesCommand } from "../commands/clues-command";
-import { GhostCommand } from '../commands/ghost-command';
-import { HelpCommand } from '../commands/help-command';
-import { PhasmoDataService } from "../services/phasmo-data";
 
 export class CommandManager {
   public readonly prefix: string;
   public readonly commands: BotCommand[];
 
-  private readonly phasmoDataService: PhasmoDataService;
-
   constructor(prefix: string){
     this.prefix = prefix;
 
-    this.phasmoDataService = new PhasmoDataService();
-
     this.commands = [
       new HelpCommand(this),
-      new GhostCommand(this.phasmoDataService),
-      new CluesCommand(this.phasmoDataService),
+      new CluesCommand(),
+      new GhostCommand()
     ];
   };
 

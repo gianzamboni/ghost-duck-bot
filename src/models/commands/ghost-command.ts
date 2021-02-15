@@ -1,27 +1,29 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message, MessageEmbed } from 'discord.js';
 
-import { BotCommand } from "../abstracts/bot-command";
-import { StringFormatter } from "../helpers/string-formatter";
-import { GhostType } from "../interfaces/ghost-type";
-import { PhasmoDataService} from "../services/phasmo-data";
+import { Evidences } from "../db-models/evidences";
+import { GhostTypes } from "../db-models/ghost-types";
+import { BotCommand } from "../../abstracts/bot-command";
+import { StringFormatter } from "../../helpers/string-formatter";
+import { Evidence } from "../../interfaces/evidence";
+import { GhostType } from "../../interfaces/ghost-type";
 
 export class GhostCommand extends BotCommand {
 
-  private phasmoDataService: PhasmoDataService;
-
-  constructor(phasmoDataService: PhasmoDataService) {
+  constructor() {
     super("ghost", [`I will give you information about the ghost type *ghost_type* that could be useful during a phasmophobia ghost hunt`], ['ghost_type']);
 
-    this.phasmoDataService = phasmoDataService;
     this.addLineToDescription("This are the ghost types I know:");
     this.addGhostTypeToDescription();
 
   }
 
   async addGhostTypeToDescription(): Promise<void> {
-      let ghostTypes = await this.phasmoDataService.getAllGhostTypes();
+      let ghostTypes = await GhostTypes.all({
+        attr: ['name']
+      });
+      
       let newLine = '\t ';
-      ghostTypes.forEach((type, index) => {
+      ghostTypes.forEach((type: GhostType, index: number) => {
         let italicName = StringFormatter.format(type.name, ['italic']);
         newLine = newLine.concat(italicName);
 
@@ -48,11 +50,11 @@ export class GhostCommand extends BotCommand {
     if(args.length < 2) {
       message.reply('tenés que decirme qué fantasma querés ');
     } else {
-      let ghostType = await this.phasmoDataService.getPhantomType(args[1].toLowerCase());
+      let ghostType = await GhostTypes.get(args[1].toLowerCase());
       reply = "La cagaste amig@, no hay ningún fantasma que se llame así";
 
       if(ghostType){
-        let ghostEvidence = await this.phasmoDataService.getEvidenceNamesOf(ghostType?.name);
+        let ghostEvidence = await Evidences.givenBy(ghostType);
         reply = this.generateEmbedFor(ghostType, ghostEvidence);
       }
 
@@ -60,14 +62,14 @@ export class GhostCommand extends BotCommand {
     }
   }
 
-  private generateEmbedFor(ghostType: GhostType, evidenceNames: string[]): MessageEmbed {
+  private generateEmbedFor(ghostType: GhostType, evidences: Evidence[]): MessageEmbed {
     let name = ghostType.name.toUpperCase();
 
     let message = new MessageEmbed().setColor('#666666')
       .setTitle(name);
 
-    evidenceNames.forEach( (evidenceName, index) => {
-      let capitalizedEvidence = StringFormatter.format(evidenceName, ['capitalize']);
+    evidences.forEach( (evidence, index) => {
+      let capitalizedEvidence = StringFormatter.format(evidence.name, ['capitalize']);
       message.addField(`Evidence ${index}`, capitalizedEvidence, true);
     })
 
