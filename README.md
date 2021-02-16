@@ -19,6 +19,7 @@ By default, all the commands of this bot must be prefixed with a point ("."). It
     * spirit
     * wraith
     * yurei
+    
  * **clues** [clue_list]: Given a space separated set of evidences, I will tell you all possible ghost types that you could be dealing with. The evidence can be any of the following, you may use its short name (which is shown between paranthesis):
     * Emf Level 5 (emf)
     * Fingerprints (prints)
@@ -27,14 +28,16 @@ By default, all the commands of this bot must be prefixed with a point ("."). It
     * Ghost Writing (writing)
     * Spirit Box (box)
 
-### Reaction
-It also read all of the messages you send to server searching for the following strings (or similiar):
-   * "awa"
-   * "owo"
-   * "uwu"
- 
- If it find one of them it will send a gif.
- 
+ * **rmap**: It will tell you which map to play next. This are the known maps:
+    * asylum
+    * bleasdale farmhouse
+    * brownstone high school
+    * edgefield street house
+    * grafton farmhouse 
+    * prison 
+    * ridgeview road house
+    * tanglewood street house
+    
  ### Warning: Be careful, Rubber Duck Ghost is a very impolite bot. If you do something he doesn't like it will insult you in spanish!
  
  ## Deployment
