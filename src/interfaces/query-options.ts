@@ -1,4 +1,4 @@
 export interface QueryOptions {
-	attr?: string[];
-	tableAlias?: string
+  attr?: string[];
+  tableAlias?: string
 }

@@ -17,4 +17,9 @@ export class StringFormatter {
     return formattedSentence;
   }
 
+  public static parseArray(array: string[], styles: string[] = []) : string {
+    let concat = array.join(', ') + '.';
+    return this.format(concat, styles);
+  }
+
 }

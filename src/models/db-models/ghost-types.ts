@@ -1,7 +1,6 @@
-import { PhasmoDataService } from '../../services/phasmo-data';
 import { GhostType } from '../../interfaces/ghost-type';
 import { QueryOptions } from '../../interfaces/query-options';
-
+import { PhasmoDataService } from '../../services/phasmo-data';
 
 export class GhostTypes {
   constructor() {};
@@ -21,10 +20,10 @@ export class GhostTypes {
 
   public static thatGive(evidenceShortNames: string[], options: QueryOptions = {}): Promise<GhostType[]> {
     options.tableAlias = 'gt';
+    
     let columns = PhasmoDataService.processOptions(options);
     let queryText = this.queryTextForEvidence(columns, evidenceShortNames.length);
     
-    console.log(queryText)
     return PhasmoDataService.exec<GhostType>(queryText, evidenceShortNames);
   }
 

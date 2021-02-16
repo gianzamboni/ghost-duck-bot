@@ -21,22 +21,8 @@ export class GhostCommand extends BotCommand {
       let ghostTypes = await GhostTypes.all({
         attr: ['name']
       });
-      
-      let newLine = '\t ';
-      ghostTypes.forEach((type: GhostType, index: number) => {
-        let italicName = StringFormatter.format(type.name, ['italic']);
-        newLine = newLine.concat(italicName);
 
-        let separator = ', ';
-        if(index == ghostTypes.length - 1){
-          separator = '.';
-        }
-
-        newLine = newLine.concat(separator);
-
-      })
-
-      this.addLineToDescription(newLine);
+      this.addArrayToDescription(ghostTypes.map((ghostType) => ghostType.name));
   }
 
   shouldExec(message: Message): boolean {

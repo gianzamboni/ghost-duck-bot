@@ -3,6 +3,7 @@ import { Message } from "discord.js";
 import { CluesCommand } from "./commands/clues-command";
 import { GhostCommand } from './commands/ghost-command';
 import { HelpCommand } from './commands/help-command';
+import { MapCommand } from './commands/map-command';
 import { BotCommand } from "../abstracts/bot-command";
 
 export class CommandManager {
@@ -15,7 +16,8 @@ export class CommandManager {
     this.commands = [
       new HelpCommand(this),
       new CluesCommand(),
-      new GhostCommand()
+      new GhostCommand(),
+      new MapCommand()
     ];
   };
 

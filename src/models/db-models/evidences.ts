@@ -1,7 +1,7 @@
-import { GhostType } from '../../interfaces/ghost-type'; 
-import { PhasmoDataService } from '../../services/phasmo-data';
 import { Evidence } from '../../interfaces/evidence';
+import { GhostType } from '../../interfaces/ghost-type'; 
 import { QueryOptions } from '../../interfaces/query-options';
+import { PhasmoDataService } from '../../services/phasmo-data';
 
 export class Evidences {
   constructor() {}
@@ -13,8 +13,8 @@ export class Evidences {
   public static givenBy(ghostType: GhostType): Promise<Evidence[]> {
     let queryText = `SELECT e.id, e.name, e.short_name 
                       FROM phasmo.evidence as e
-                            JOIN phasmo.ghost_gives_evidence as gge ON gge.evidence_id = e.id
-                            JOIN phasmo.ghost_type as gt ON gt.id = gge.ghost_id
+                        JOIN phasmo.ghost_gives_evidence as gge ON gge.evidence_id = e.id
+                        JOIN phasmo.ghost_type as gt ON gt.id = gge.ghost_id
                      WHERE gt.id=$1`
     
     const values = [ ghostType.id ];

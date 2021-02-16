@@ -25,7 +25,7 @@ export class PhasmoDataService {
     let queryResult = await this.pool.query(queryText, values);
     return queryResult.rows as T[];
   }
-
+  
   public static processOptions(options: QueryOptions) : string {
     const tableAlias = options.tableAlias? options.tableAlias + '.' : '';
 
