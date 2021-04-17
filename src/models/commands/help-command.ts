@@ -22,8 +22,10 @@ export class HelpCommand extends BotCommand {
   exec(message: Message): void {
     this.helpText = StringFormatter.format('pedile ayuda a tu vieja', ['strikethrough']);
     this.helpText = `${this.helpText} you can use any of the following commands by prefixing a "${this.commandManager.prefix}" before them:\n`;
-    this.addDescriptionBatch(this.commandManager.commands);
+    this.addDescriptionBatch(this.commandManager.prefixedCommands);
 
+    this.helpText = this.helpText.concat(`\nI also react to some of your messages by sending a gif if they contain some of the following strings (or similiar):\n`);
+    this.addReactionBatch(this.commandManager.reactions);
     message.reply(this.helpText, {
       split: true
     });
@@ -51,5 +53,11 @@ export class HelpCommand extends BotCommand {
     commandHelpText = commandHelpText.concat(command.formattedDescription(2));
 
     this.helpText = this.helpText.concat(`${commandHelpText}\n`);
+  }
+
+  private addReactionBatch(reactions: BotCommand[]){
+    for(let reaction of reactions){
+      this.helpText = this.helpText.concat(`\t\t* "${reaction.name}"\n`);
+    }
   }
 }
