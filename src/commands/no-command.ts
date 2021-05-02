@@ -5,7 +5,7 @@ import { BotCommand } from "../abstracts/bot-command";
 export class NoCommand extends BotCommand {
 
   constructor() {
-    super("no");
+    super("no.");
   }
 
   shouldExec(message: Message): boolean {
