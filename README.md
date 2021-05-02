@@ -40,13 +40,13 @@ By default, all the commands of this bot must be prefixed with a point ("."). It
  
  I also react to some of your messages by sending a gif if they contain some of the following strings (or similiar):
  
-    * "awa"
-    * "ewe"
-    * "iwi"
-    * "owo"
-    * "uwu"
-    * "si."
-    * "no."
+   * "awa"
+   * "ewe"
+   * "iwi"
+   * "owo"
+   * "uwu"
+   * "si."
+   * "no."
         
  ### Warning: Be careful, Rubber Duck Ghost is a very impolite bot. If you do something he doesn't like it will insult you in spanish!
  
