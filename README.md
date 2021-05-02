@@ -1,8 +1,8 @@
 # Ghost Duck Bot: A bot for Discord
 ## About
-
 In order to add the bot to your discord server use the following link:
 https://discord.com/api/oauth2/authorize?client_id=393621069900283905&permissions=522304&scope=bot
+
 ### Commands
 By default, all the commands of this bot must be prefixed with a point ("."). It has 3 commands:
  * **help**: It will show you everything I can do
@@ -44,8 +44,8 @@ By default, all the commands of this bot must be prefixed with a point ("."). It
         * "iwi"
         * "owo"
         * "uwu"
-        * "si"
-        * "no"
+        * "si."
+        * "no."
         
  ### Warning: Be careful, Rubber Duck Ghost is a very impolite bot. If you do something he doesn't like it will insult you in spanish!
  
