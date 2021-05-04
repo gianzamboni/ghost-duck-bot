@@ -1,11 +1,11 @@
 import { Message, MessageEmbed } from 'discord.js';
 
-import { Evidences } from "../db-models/evidences";
-import { GhostTypes } from "../db-models/ghost-types";
-import { BotCommand } from "../../abstracts/bot-command";
-import { StringFormatter } from "../../helpers/string-formatter";
-import { Evidence } from "../../interfaces/evidence";
-import { GhostType } from "../../interfaces/ghost-type";
+import { Evidences } from "../../db-models/evidences";
+import { GhostTypes } from "../../db-models/ghost-types";
+import { BotCommand } from "../../../abstracts/bot-command";
+import { StringFormatter } from "../../../helpers/string-formatter";
+import { Evidence } from "../../../interfaces/evidence";
+import { GhostType } from "../../../interfaces/ghost-type";
 
 export class GhostCommand extends BotCommand {
 

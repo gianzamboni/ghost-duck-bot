@@ -11,11 +11,7 @@ export class PhasmoDataService {
 
   public static init(): void {
     if(!this.pool) {
-      this.pool = new Pool({
-        ssl: {
-          rejectUnauthorized: false
-        }
-      });
+      this.pool = new Pool();
     }
   }
 

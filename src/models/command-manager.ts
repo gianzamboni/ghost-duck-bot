@@ -1,17 +1,20 @@
 import { Message } from "discord.js";
 
-import { AwaCommand } from '../commands/awa-command'
-import { EweCommand } from '../commands/ewe-command';
-import { IwiCommand } from '../commands/iwi-command';
-import { NoCommand } from '../commands/no-command';
-import { OwoCommand } from '../commands/owo-command';
-import { SiCommand } from '../commands/si-command';
-import { UwuCommand } from '../commands/uwu-command';
-
-import { CluesCommand } from "./commands/clues-command";
-import { GhostCommand } from './commands/ghost-command';
 import { HelpCommand } from './commands/help-command';
-import { MapCommand } from './commands/map-command';
+import { EstaCommand } from './commands/esta-command';
+import { AwaCommand } from './commands/reactions/awa-command';
+import { EweCommand } from './commands/reactions/ewe-command';
+import { IwiCommand } from './commands/reactions/iwi-command';
+import { NoCommand } from './commands/reactions/no-command';
+import { OwoCommand } from './commands/reactions/owo-command';
+import { SiCommand } from './commands/reactions/si-command';
+import { UwuCommand } from './commands/reactions/uwu-command';
+
+
+import { CluesCommand } from "./commands/phasmophobia/clues-command";
+import { GhostCommand } from './commands/phasmophobia/ghost-command';
+
+import { MapCommand } from './commands/phasmophobia/map-command';
 import { BotCommand } from "../abstracts/bot-command";
 
 
@@ -21,8 +24,7 @@ export class CommandManager {
   public readonly prefixedCommands: BotCommand[];
 
   constructor(prefix: string){
-    this.prefix = prefix;
-
+    this.prefix = prefix
     this.prefixedCommands = [
       new HelpCommand(this),
       new CluesCommand(),
@@ -33,6 +35,7 @@ export class CommandManager {
     this.reactions = [
       new AwaCommand(),
       new EweCommand(),
+      new EstaCommand(),
       new IwiCommand(),
       new OwoCommand(),
       new UwuCommand(),
