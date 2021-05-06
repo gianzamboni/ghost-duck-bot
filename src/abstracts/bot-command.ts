@@ -1,5 +1,6 @@
 import { Message } from 'discord.js';
 import { CommandDescription } from '@models/command-description';
+
 export abstract class BotCommand {
 
   public readonly name: string;
@@ -12,6 +13,5 @@ export abstract class BotCommand {
     this.description = new CommandDescription();
   }
 
-  public abstract shouldExec(message: Message): boolean;
   public abstract exec(message: Message) : void;
 }

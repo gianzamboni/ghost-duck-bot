@@ -1,5 +1,4 @@
 export class StringFormatter {
-
   public static readonly stylizers: { [id: string ]: (s: string) => string; } = {
     'bold': (sentence:  string) => `**${sentence}**`,
     'capitalize': (sentence:  string) => sentence.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),

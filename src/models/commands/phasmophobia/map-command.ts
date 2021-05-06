@@ -1,8 +1,8 @@
 import { Message } from 'discord.js';
 
-import { BotCommand } from "@abstracts/bot-command";
-import { Map } from "@interfaces/map";
-import { Maps } from "@models/db-entities/maps";
+import { BotCommand } from '@abstracts/bot-command';
+import { Map } from '@interfaces/map';
+import { Maps } from '@models/db-entities/maps';
 
 export class MapCommand extends BotCommand {
 
@@ -22,10 +22,6 @@ export class MapCommand extends BotCommand {
       });
       
       this.description.addList(maps.map((map: Map) => map.name));
-  }
-
-  shouldExec(message: Message): boolean {
-    return message.content === this.name;
   }
 
   async exec(message: Message): Promise<void> {

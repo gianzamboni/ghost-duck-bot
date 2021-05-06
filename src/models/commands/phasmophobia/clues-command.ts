@@ -26,10 +26,6 @@ export class CluesCommand extends BotCommand {
     this.description.addList(formattedEvidence);
   };
 
-  shouldExec(message: Message): boolean {
-    return message.content.startsWith(this.name);
-  }
-
   async exec(message: Message): Promise<void> {
     let args = message.content.split(" ").map((argument) => argument.toLowerCase());
     args.shift();

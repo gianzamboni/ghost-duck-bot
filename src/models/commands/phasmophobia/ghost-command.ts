@@ -1,11 +1,11 @@
 import { Message, MessageEmbed } from 'discord.js';
 
-import { BotCommand } from "@abstracts/bot-command";
-import { StringFormatter } from "@helpers/string-formatter";
-import { Evidence } from "@interfaces/evidence";
-import { GhostType } from "@interfaces/ghost-type";
-import { Evidences } from "@models/db-entities/evidences";
-import { GhostTypes } from "@models/db-entities/ghost-types";
+import { BotCommand } from '@abstracts/bot-command';
+import { StringFormatter } from '@helpers/string-formatter';
+import { Evidence } from '@interfaces/evidence';
+import { GhostType } from '@interfaces/ghost-type';
+import { Evidences } from '@models/db-entities/evidences';
+import { GhostTypes } from '@models/db-entities/ghost-types';
 
 
 export class GhostCommand extends BotCommand {
@@ -29,11 +29,7 @@ export class GhostCommand extends BotCommand {
 
       this.description.addList(ghostTypes.map((ghostType) => ghostType.name));
   }
-
-  shouldExec(message: Message): boolean {
-    return message.content.startsWith(this.name);
-  }
-
+  
   async exec(message: Message): Promise<any> {
     let args = message.content.split(' ');
     let reply: string | MessageEmbed = 'You have to tell me which ghost type you need info about';

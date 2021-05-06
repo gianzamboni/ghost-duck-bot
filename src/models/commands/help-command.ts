@@ -31,9 +31,9 @@ export class HelpCommand extends BotCommand {
     });
   }
 
-  private addDescriptionBatch(commandList: BotCommand[]): void {
-    for (let command of commandList) {
-      this.addDescription(command);
+  private addDescriptionBatch(commandList: { [key: string]: BotCommand }): void {
+    for (let command in commandList) {
+      this.addDescription(commandList[command]);
     }
   }
 
