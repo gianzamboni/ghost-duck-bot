@@ -15,10 +15,6 @@ export class HelpCommand extends BotCommand {
     this.helpText=''
   }
 
-  shouldExec(message: Message): boolean {
-    return message.content === this.name;
-  }
-
   exec(message: Message): void {
     this.helpText = StringFormatter.format('pedile ayuda a tu vieja', ['strikethrough']);
     this.helpText = `${this.helpText} you can use any of the following commands by prefixing a "${this.commandManager.prefix}" before them:\n`;

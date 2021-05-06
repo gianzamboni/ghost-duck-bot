@@ -12,11 +12,6 @@ export class EstaCommand extends BotCommand {
     this.bannedUsers = {};
   }
 
-  shouldExec(message: Message): boolean {
-    let matches = message.content.match(/^esta( )?(full|fast)?$/i);
-    return  matches !== null
-  }
-
   async exec(message: Message) : Promise<void> {
     if(!message.member?.voice.channel) {
       message.channel.send("Deja de trolear, forro. Necesitas estar conectado al canal de voz para usarme");  
