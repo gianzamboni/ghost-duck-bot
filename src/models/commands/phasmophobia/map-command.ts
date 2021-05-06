@@ -7,9 +7,11 @@ import { Maps } from "@models/db-entities/maps";
 export class MapCommand extends BotCommand {
 
   constructor() {
-    super("rmap", [`If you can't decide which map to play, I will choose it for you`], []);
-
-    this.addLineToDescription("This are the maps I know:");
+    super("rmap")
+    this.description.addLines([
+      `If you can't decide which map to play, I will choose it for you`,
+      "This are the maps I know:"
+    ]);
     this.addMapsToDescription();
 
   }
@@ -19,7 +21,7 @@ export class MapCommand extends BotCommand {
         attr: ['name']
       });
       
-      this.addArrayToDescription(maps.map((map: Map) => map.name));
+      this.description.addList(maps.map((map: Map) => map.name));
   }
 
   shouldExec(message: Message): boolean {

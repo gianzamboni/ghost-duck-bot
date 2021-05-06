@@ -5,7 +5,7 @@ import { BotCommand } from "@abstracts/bot-command";
 export class IwiCommand extends BotCommand {
 
   constructor()   {
-    super("iwi", [])
+    super("iwi")
   }
 
   shouldExec(message: Message): boolean {

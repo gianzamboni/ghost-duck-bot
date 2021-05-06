@@ -7,7 +7,8 @@ export class EstaCommand extends BotCommand {
   private bannedUsers: { [key: string]: boolean };
 
   constructor()   {
-    super("esta", ['Reproduce una parte de Quiereme de Jean Carlo'], ['version'])
+    super("esta", ["full | fast"]);
+    this.description.addLine('Reproduce una parte de Quiereme de Jean Carlo');
     this.bannedUsers = {};
   }
 

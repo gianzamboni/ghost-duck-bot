@@ -10,20 +10,20 @@ import { GhostTypes } from '@models/db-entities/ghost-types';
 export class CluesCommand extends BotCommand {
 
   constructor() {
-    super("clues",
-    ["Given a space separated set of evidences, I will tell you all possible ghost types that you could be dealing with. The evidence can be any of the following, you may use its short name (which is shown between paranthesis):"],
-    ['clue_list']);
-
+    super("clues", ["clue"]);
+    this.description.addLine("Given a space separated set of evidences, I will tell you all possible ghost types that you could be dealing with. The evidence can be any of the following, you may use its short name (which is shown between paranthesis):");
+    
     this.addEvidenceToDescription();
   }
 
   async addEvidenceToDescription(): Promise<void> {
     let posibleEvidence = await Evidences.all();
-    for(let evidence of posibleEvidence) {
+    let formattedEvidence = posibleEvidence.map( (evidence) => {
       let evidenceName = StringFormatter.format(evidence.name, ['capitalize']);
       let evidenceShort =  StringFormatter.format(evidence.short_name, ['italic']);;
-      this.addLineToDescription(`\t* ${evidenceName} (${evidenceShort})`);
-    }
+      return `${evidenceName} (${evidenceShort})`
+    })   
+    this.description.addList(formattedEvidence);
   };
 
   shouldExec(message: Message): boolean {

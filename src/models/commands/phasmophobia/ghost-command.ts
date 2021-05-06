@@ -11,9 +11,13 @@ import { GhostTypes } from "@models/db-entities/ghost-types";
 export class GhostCommand extends BotCommand {
 
   constructor() {
-    super("ghost", [`I will give you information about the ghost type *ghost_type* that could be useful during a phasmophobia ghost hunt`], ['ghost_type']);
+    super("ghost", ["ghost"]);
 
-    this.addLineToDescription("This are the ghost types I know:");
+    this.description.addLines([
+      `I will give you information about the ghost type *ghost_type* that could be useful during a phasmophobia ghost hunt`,
+      "This are the ghost types I know:"
+    ]);
+
     this.addGhostTypeToDescription();
 
   }
@@ -23,7 +27,7 @@ export class GhostCommand extends BotCommand {
         attr: ['name']
       });
 
-      this.addArrayToDescription(ghostTypes.map((ghostType) => ghostType.name));
+      this.description.addList(ghostTypes.map((ghostType) => ghostType.name));
   }
 
   shouldExec(message: Message): boolean {

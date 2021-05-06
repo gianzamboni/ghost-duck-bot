@@ -5,7 +5,7 @@ import { BotCommand } from "@abstracts/bot-command";
 export class EweCommand extends BotCommand {
 
   constructor()   {
-    super("ewe", [])
+    super("ewe")
   }
 
   shouldExec(message: Message): boolean {
