@@ -10,16 +10,9 @@ export class StringFormatter {
   private constructor() {};
 
   public static format(sentence: string, styles: string[]): string {
-    let formattedSentence = sentence;
-    for(let style of styles) {
-      formattedSentence = this.stylizers[style](formattedSentence)
-    }
-    return formattedSentence;
+    return styles.reduce((current, style) => {
+      return this.stylizers[style](current)
+    }, sentence);
   }
-
-  public static parseArray(array: string[], styles: string[] = []) : string {
-    let concat = array.join(', ') + '.';
-    return this.format(concat, styles);
-  }
-
+  
 }
