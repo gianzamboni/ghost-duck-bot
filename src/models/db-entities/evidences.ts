@@ -1,7 +1,8 @@
-import { Evidence } from '../../interfaces/evidence';
-import { GhostType } from '../../interfaces/ghost-type'; 
-import { QueryOptions } from '../../interfaces/query-options';
-import { PhasmoDataService } from '../../services/phasmo-data';
+import { Evidence } from '@interfaces/evidence';
+import { GhostType } from '@interfaces/ghost-type'; 
+import { QueryOptions } from '@interfaces/query-options';
+import { PhasmoDataService } from '@services/phasmo-data';
+
 
 export class Evidences {
   constructor() {}

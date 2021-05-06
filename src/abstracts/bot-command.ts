@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 
-import { StringFormatter } from "../helpers/string-formatter";
+import { StringFormatter } from "@helpers/string-formatter";
 
 export abstract class BotCommand {
 

@@ -1,8 +1,8 @@
 import { Message } from 'discord.js';
 
-import { Maps } from "./../../db-models/maps";
-import { BotCommand } from "./../../../abstracts/bot-command";
-import { Map } from "./../../../interfaces/map";
+import { BotCommand } from "@abstracts/bot-command";
+import { Map } from "@interfaces/map";
+import { Maps } from "@models/db-entities/maps";
 
 export class MapCommand extends BotCommand {
 

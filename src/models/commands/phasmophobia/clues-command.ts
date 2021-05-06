@@ -1,11 +1,11 @@
 import { Message, MessageEmbed } from 'discord.js';
 
-import { Evidences } from './../../db-models/evidences';
-import { GhostTypes } from './../../db-models/ghost-types';
-import { BotCommand } from './../../../abstracts/bot-command';
-import { StringFormatter } from './../../../helpers/string-formatter'
-import { GhostType } from './../../../interfaces/ghost-type';
-import { Evidence } from './../../../interfaces/evidence';
+import { BotCommand } from '@abstracts/bot-command';
+import { StringFormatter } from '@helpers/string-formatter'
+import { GhostType } from '@interfaces/ghost-type';
+import { Evidence } from '@interfaces/evidence';
+import { Evidences } from '@models/db-entities/evidences';
+import { GhostTypes } from '@models/db-entities/ghost-types';
 
 export class CluesCommand extends BotCommand {
 

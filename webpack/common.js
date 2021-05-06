@@ -21,7 +21,14 @@ module.exports = {
     plugins: [],
 
     resolve: {
-        extensions: [ '.ts', '.js' ]
+        extensions: [ '.ts', '.js' ],
+        alias: {
+            "@abstracts": path.resolve(__dirname, '../src/abstracts'),
+            "@helpers": path.resolve(__dirname, '../src/helpers'),
+            "@interfaces": path.resolve(__dirname, '../src/interfaces'),
+            "@models": path.resolve(__dirname, '../src/models'),
+            "@services": path.resolve(__dirname, '../src/services')
+        }
     },
     
     target: "node"

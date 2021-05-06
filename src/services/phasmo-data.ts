@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 
-import { QueryOptions } from '../interfaces/query-options';
+import { QueryOptions } from '@interfaces/query-options';
 
 
 export class PhasmoDataService {

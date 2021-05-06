@@ -1,6 +1,6 @@
-import { Map } from '../../interfaces/map';
-import { QueryOptions } from '../../interfaces/query-options';
-import { PhasmoDataService } from '../../services/phasmo-data';
+import { Map } from '@interfaces/map';
+import { QueryOptions } from '@interfaces/query-options';
+import { PhasmoDataService } from '@services/phasmo-data';
 
 export class Maps {
   constructor(){}

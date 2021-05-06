@@ -1,11 +1,14 @@
 import { Message } from "discord.js";
 
-import { BotCommand } from "../../abstracts/bot-command";
+import { BotCommand } from "@abstracts/bot-command";
 
 export class EstaCommand extends BotCommand {
 
+  private bannedUsers: { [key: string]: boolean };
+
   constructor()   {
     super("esta", ['Reproduce una parte de Quiereme de Jean Carlo'], ['version'])
+    this.bannedUsers = {};
   }
 
   shouldExec(message: Message): boolean {
@@ -16,7 +19,13 @@ export class EstaCommand extends BotCommand {
   async exec(message: Message) : Promise<void> {
     if(!message.member?.voice.channel) {
       message.channel.send("Deja de trolear, forro. Necesitas estar conectado al canal de voz para usarme");  
+    } else if (this.bannedUsers[message.author.id]) {
+      message.channel.send("Ya se que el comando es lo mejor que hay, pero dejá de espamearlo cap@");  
     } else {
+      this.bannedUsers[message.author.id] = true;
+      setTimeout(() => {
+        this.bannedUsers[message.author.id] = false;
+      }, 10000)
       let params: string[] = message.content.split(" ");
       params.shift();
 

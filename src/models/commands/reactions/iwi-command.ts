@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 
-import { BotCommand } from "./../../../abstracts/bot-command";
+import { BotCommand } from "@abstracts/bot-command";
 
 export class IwiCommand extends BotCommand {
 
