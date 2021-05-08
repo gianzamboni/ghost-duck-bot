@@ -12,6 +12,7 @@ export class CommandDescription {
     public addLines(lines: string[]): void {
         this.lines = this.lines.concat(lines);
     }
+    
     public addList(list : string[]): void {
         list.map((item) => {
             let newLine = '\t ■ ' + item;

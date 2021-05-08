@@ -1,16 +1,12 @@
 {
   "name": "ghost-duck-bot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A bot for nodejs",
-  "engines": {
-    "node": "14.15.1",
-    "npm": "6.14.8"
-  },
   "scripts": {
     "build": "cross-env-file -p .env.prod.json webpack --mode=production --config webpack/config.prod.js",
     "dev": "cross-env-file -p .env.dev.json webpack --mode=development  --config webpack/config.dev.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node build/main.js",
+    "start": "cross-env-file -p .env.prod.json node build/main.js",
     "heroku-postbuild": "webpack --mode=production --config webpack/config.prod.js"
   },
   "repository": {
@@ -26,7 +22,6 @@
   "devDependencies": {
     "@types/node": "^14.14.7",
     "@types/pg": "^7.14.7",
-    "cross-env-file": "^1.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-import-resolver-webpack": "^0.13.0",
@@ -39,6 +34,7 @@
   },
   "dependencies": {
     "@discordjs/opus": "^0.5.0",
+    "cross-env-file": "^1.0.0",
     "discord.js": "^12.4.1",
     "pg": "^8.5.1"
   }
