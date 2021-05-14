@@ -6,7 +6,7 @@
     "build": "cross-env-file -p .env.prod.json webpack --mode=production --config webpack/config.prod.js",
     "dev": "cross-env-file -p .env.dev.json webpack --mode=development  --config webpack/config.dev.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env-file -p .env.prod.json node build/main.js",
+    "start": "cross-env-file -p .env.prod.json node --trace-warnings build/main.js",
     "heroku-postbuild": "webpack --mode=production --config webpack/config.prod.js"
   },
   "repository": {
