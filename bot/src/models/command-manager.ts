@@ -5,7 +5,6 @@ import { EstaCommand } from '@models/commands/esta-command';
 import { ReactionCommand } from '@models/commands/reaction-command';
 import { CluesCommand } from "@models/commands/phasmophobia/clues-command";
 import { GhostCommand } from '@models/commands/phasmophobia/ghost-command';
-import { MapCommand } from '@models/commands/phasmophobia/map-command';
 import { BotCommand } from "@abstracts/bot-command";
 
 
@@ -42,7 +41,6 @@ export class CommandManager {
       "help": new HelpCommand(this),
       "clues": new CluesCommand(),
       "ghost": new GhostCommand(),
-      "rmap": new MapCommand(),
       "esta": new EstaCommand()
     };
   }

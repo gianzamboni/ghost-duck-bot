@@ -17,7 +17,7 @@ export class PhasmoDataService {
 
   public static async getAll<T>(tableName: string, options: QueryOptions = {}): Promise<T[]> {
     let columns = this.processOptions(options);
-    const queryText = `SELECT ${columns} FROM phasmo.${tableName} ORDER BY name ASC`;
+    const queryText = `SELECT ${columns} FROM ${tableName} ORDER BY name ASC`;
     return this.exec<T>(queryText);
   }
 
@@ -25,14 +25,14 @@ export class PhasmoDataService {
     let queryResult = await this.pool.query(queryText, values);
     return queryResult.rows as T[];
   }
-  
+
   public static processOptions(options: QueryOptions) : string {
     const tableAlias = options.tableAlias? options.tableAlias + '.' : '';
 
     let columns = '*';
     if(options.attr) {
       columns = options.attr.reduce((prev, current) => prev + ', ' + tableAlias + current, tableAlias + 'id');
-    } 
+    }
 
     return columns;
   }

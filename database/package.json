@@ -1,0 +1,24 @@
+{
+  "name": "ghost-duck-bot-database",
+  "version": "1.0.0",
+  "description": "Database creator for ghost duck bot",
+  "scripts": {
+    "dev::migrateDB": "cross-env-file -p .env.dev.json node --trace-warnings src/migrate.js",
+    "migrateDB": "cross-env-file -p .env.prod.json node --trace-warnings src/migrate.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gianzamboni/basic-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gianzamboni/basic-template/issues"
+  },
+  "homepage": "https://github.com/gianzamboni/basic-template#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "@databases/pg": "^5.1.0",
+    "cross-env-file": "^1.0.0"
+  }
+}
