@@ -14,9 +14,9 @@ export class EstaCommand extends BotCommand {
 
   async exec(message: Message) : Promise<void> {
     if(!message.member?.voice.channel) {
-      message.channel.send("Deja de trolear, forro. Necesitas estar conectado al canal de voz para usarme");  
+      message.channel.send("Deja de trolear, forro. Necesitas estar conectado al canal de voz para usarme");
     } else if (this.bannedUsers[message.author.id]) {
-      message.channel.send("Ya se que el comando es lo mejor que hay, pero dejá de espamearlo cap@");  
+      message.channel.send("Ya se que el comando es lo mejor que hay, pero dejá de espamearlo cap@");
     } else {
       this.bannedUsers[message.author.id] = true;
       setTimeout(() => {
@@ -30,13 +30,13 @@ export class EstaCommand extends BotCommand {
         if(song){
           const connection = await message.member.voice.channel.join();
           message.channel.send({
-           files: ['static/esta.gif']
+           files: ['static/gifs/esta.gif']
           });
-          const dispatcher = connection.play(song);    
+          const dispatcher = connection.play(song);
           dispatcher.on('finish', () => {
             connection.disconnect();
-          }) 
-        }   
+          })
+        }
       }
     }
   }

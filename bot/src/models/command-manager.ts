@@ -41,19 +41,21 @@ export class CommandManager {
       "help": new HelpCommand(this),
       "clues": new CluesCommand(),
       "ghost": new GhostCommand(),
-      "esta": new EstaCommand()
+      "esta": new EstaCommand(),
     };
   }
 
   private setReactions(): void {
     this.reactions = [
-      new ReactionCommand('awa', /^.*a+[ ]*w+[ ]*a+.*$/i, 'https://i.imgur.com/V2h0XIV.gif'),
-      new ReactionCommand('ewe', /^.*e+[ ]*w+[ ]*e+.*$/i, 'https://media1.tenor.com/images/fccd309c70e59df9fe27bd81b6429eb1/tenor.gif?itemid=12689104'),
-      new ReactionCommand('iwi', /^.*i+[ ]*w+[ ]*i+.*$/i, 'https://media1.tenor.com/images/25934fdaaed5854e775526931b900cab/tenor.gif'),
-      new ReactionCommand('owo', /^.*o+[ ]*w+[ ]*o+.*$/i, 'https://media1.tenor.com/images/f5bc4d03d3c78d585508945daead8a7e/tenor.gif'),
-      new ReactionCommand('uwu', /^.*u+[ ]*w+[ ]*u+.*$/i, 'https://media.tenor.com/images/da03e7732c014219614dd7c03674f468/tenor.gif'),
-      new ReactionCommand('si.', /^.*si\..*$/i, 'https://media1.tenor.com/images/4fa3a2b2ccdb4d629b065ac2b62a86f0/tenor.gif'),
-      new ReactionCommand('no.', /^.*no\..*$/i, 'https://media0.giphy.com/media/W2zOnQonnYsNXnUxXo/giphy.gif')
+      new ReactionCommand('awa', /^.*a+[ ]*w+[ ]*a+.*$/i, 'static/gifs/awa.gif'),
+      new ReactionCommand('ewe', /^.*e+[ ]*w+[ ]*e+.*$/i, 'static/gifs/ewe.gif'),
+      new ReactionCommand('iwi', /^.*i+[ ]*w+[ ]*i+.*$/i, 'static/gifs/iwi.gif'),
+      new ReactionCommand('owo', /^.*o+[ ]*w+[ ]*o+.*$/i, 'static/gifs/owo.gif'),
+      new ReactionCommand('uwu', /^.*u+[ ]*w+[ ]*u+.*$/i, 'static/gifs/uwu.gif'),
+      new ReactionCommand('si.', /^.*si\..*$/i, 'static/gifs/si.gif'),
+      new ReactionCommand('no.', /^.*no\..*$/i, 'static/gifs/no.gif'),
+      new ReactionCommand('fire', /^.*(ardas|arder|burn|fire|fuego|incendio|infierno|matar|mueras|quemar).*$/i, 'static/gifs/fuego.gif'),
+      new ReactionCommand('fire', /^.*[ ]*aa+[ ]*.*$/i, 'static/gifs/aaa.gif')
     ];
   }
 }
