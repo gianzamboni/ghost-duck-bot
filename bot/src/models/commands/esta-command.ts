@@ -42,13 +42,13 @@ export class EstaCommand extends BotCommand {
   }
 
   private getSong(params: string[]): string | null {
-    if(params.length === 0) return 'static/esta.mp3';
+    if(params.length === 0) return 'static/mp3/esta/esta.mp3';
 
     switch(params[0]) {
       case "full":
-        return 'static/esta-full.mp3';
+        return 'static/mp3/esta/esta-full.mp3';
       case "fast":
-        return 'static/esta-fast.mp3';
+        return 'static/mp3/esta/esta-fast.mp3';
       default:
         return null;
     }

@@ -55,7 +55,7 @@ export class CommandManager {
       new ReactionCommand('si.', /^.*si\..*$/i, 'static/gifs/si.gif'),
       new ReactionCommand('no.', /^.*no\..*$/i, 'static/gifs/no.gif'),
       new ReactionCommand('fire', /^.*(ardas|arder|burn|fire|fuego|incendio|infierno|matar|mueras|quemar).*$/i, 'static/gifs/fuego.gif'),
-      new ReactionCommand('fire', /^.*[ ]*aa+[ ]*.*$/i, 'static/gifs/aaa.gif')
+      new ReactionCommand('aaaah', /^.*[ ]*aa+[ ]*.*$/i, 'static/gifs/aaa.gif')
     ];
   }
 }
