@@ -29,24 +29,19 @@ export class CommandManager {
   public process(message: Message): void {
     if(message.author.bot) return;
 
-    if (message.content.startsWith(this.prefix)) this.processPrefixedCommand(message);
-    else if (message.content.startsWith(this.soundPrefix)) this.processSoundCommand(message);
+    if (message.content.startsWith(this.prefix)) this.processCommandFrom(this.prefixedCommands, message);
+    else if (message.content.startsWith(this.soundPrefix)) this.processCommandFrom(this.soundCommands, message);
     else this.processReaction(message);
   }
 
-  private processPrefixedCommand(message: Message) : void {
+  private processCommandFrom(commandDict: { [key: string]: BotCommand }, message: Message) : void {
     let args = message.content.substring(this.prefix.length).split(' ');
     let command = args.shift();
-    if(command && this.prefixedCommands[command]) {
-      this.prefixedCommands[command].exec(message);
+    if(command && commandDict[command]) {
+      commandDict[command].exec(message);
     } else {
       message.channel.send("No se hacer eso");
     }
-  }
-
-  private processSoundCommand(message: Message) : void {
-    let command = message.content.substring(this.prefix.length);
-    this.soundCommands[command].exec(message);
   }
 
   private processReaction(message: Message): void {

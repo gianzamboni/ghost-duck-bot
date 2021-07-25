@@ -10,7 +10,7 @@ export class GhostTypes {
   }
 
   public static async get(name: string): Promise<GhostType | undefined> {
-    const queryText = "SELECT * FROM phasmo.ghost_type WHERE name=$1";
+    const queryText = "SELECT * FROM ghost_type WHERE name=$1";
     const values = [name];
 
     let queryResult = await PhasmoDataService.exec<GhostType>(queryText, values);
@@ -20,20 +20,20 @@ export class GhostTypes {
 
   public static thatGive(evidenceShortNames: string[], options: QueryOptions = {}): Promise<GhostType[]> {
     options.tableAlias = 'gt';
-    
+
     let columns = PhasmoDataService.processOptions(options);
     let queryText = this.queryTextForEvidence(columns, evidenceShortNames.length);
-    
+
     return PhasmoDataService.exec<GhostType>(queryText, evidenceShortNames);
   }
 
   private static queryTextForEvidence(columns: string, evidenceNumber: number): string {
-    const joinWhere = `JOIN phasmo.ghost_gives_evidence AS  gge ON gge.ghost_id = gt.id
-                  JOIN phasmo.evidence AS e ON e.id = gge.evidence_id
+    const joinWhere = `JOIN ghost_gives_evidence AS  gge ON gge.ghost_id = gt.id
+                  JOIN evidence AS e ON e.id = gge.evidence_id
                   WHERE e.short_name =`;
 
-    let queryText = `SELECT ${columns} from phasmo.ghost_type AS gt ${joinWhere}$1`
-   
+    let queryText = `SELECT ${columns} from ghost_type AS gt ${joinWhere}$1`
+
     if(evidenceNumber > 1) {
       for(let i = 2; i <= evidenceNumber; i++){
         queryText = `SELECT ${columns} FROM (${queryText}) AS gt ${joinWhere}$${i}`;
