@@ -22,6 +22,8 @@ export class HelpCommand extends BotCommand {
 
     this.helpText = this.helpText.concat(`\nI also react to some of your messages by sending a gif if they contain some of the following strings (or similiar):\n`);
     this.addReactionBatch(this.commandManager.reactions);
+    this.helpText = this.helpText.concat(`\nTambien puedo reproducir estos sonido:\n`);
+    this.addNameBatch(this.commandManager.soundCommands);
     message.reply(this.helpText, {
       split: true
     });
@@ -52,8 +54,13 @@ export class HelpCommand extends BotCommand {
   }
 
   private addReactionBatch(reactions: BotCommand[]){
-    for(let reaction of reactions){
-      this.helpText = this.helpText.concat(`\t\t* "${reaction.name}"\n`);
-    }
+    let reactionNames = reactions.map(reaction => reaction.name).join(', ');
+    this.helpText = this.helpText.concat(`\t\t${StringFormatter.format(reactionNames, ['italic'])}`);
   }
+
+  private addNameBatch(commandList: { [key: string]: BotCommand }): void {
+    let names = Object.keys(commandList).join(', ');
+    this.helpText = this.helpText.concat(`\t\t${StringFormatter.format(names, ['italic'])}`);
+  }
+
 }

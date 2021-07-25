@@ -1,3 +1,4 @@
+import { readdirSync } from 'fs';
 import { Message } from 'discord.js';
 
 import { HelpCommand } from '@models/commands/help-command';
@@ -6,33 +7,51 @@ import { ReactionCommand } from '@models/commands/reaction-command';
 import { CluesCommand } from "@models/commands/phasmophobia/clues-command";
 import { GhostCommand } from '@models/commands/phasmophobia/ghost-command';
 import { BotCommand } from "@abstracts/bot-command";
+import { SoundCommand } from './commands/sound-command';
 
 
 export class CommandManager {
   public readonly prefix: string;
+  public readonly soundPrefix: string;
+
   public reactions: BotCommand[] = [];
   public prefixedCommands: { [key: string]: BotCommand } = {};
+  public soundCommands: { [key: string]: BotCommand } = {};
 
-  constructor(prefix: string){
-    this.prefix = prefix;
+  constructor(){
+    this.prefix = 'd!';
+    this.soundPrefix = 's!';
     this.setPrefixedCommands();
     this.setReactions();
-
+    this.setSoundCommands();
   };
 
   public process(message: Message): void {
     if(message.author.bot) return;
 
-    if (message.content.startsWith(this.prefix)) {
-      let args = message.content.substring(this.prefix.length).split(' ');
-      let command = args.shift();
-      if(command && this.prefixedCommands[command]) {
-        this.prefixedCommands[command].exec(message);
-      }
+    if (message.content.startsWith(this.prefix)) this.processPrefixedCommand(message);
+    else if (message.content.startsWith(this.soundPrefix)) this.processSoundCommand(message);
+    else this.processReaction(message);
+  }
+
+  private processPrefixedCommand(message: Message) : void {
+    let args = message.content.substring(this.prefix.length).split(' ');
+    let command = args.shift();
+    if(command && this.prefixedCommands[command]) {
+      this.prefixedCommands[command].exec(message);
     } else {
-      for(let reaction of this.reactions) {
-        reaction.exec(message);
-      }
+      message.channel.send("No se hacer eso");
+    }
+  }
+
+  private processSoundCommand(message: Message) : void {
+    let command = message.content.substring(this.prefix.length);
+    this.soundCommands[command].exec(message);
+  }
+
+  private processReaction(message: Message): void {
+    for(let reaction of this.reactions) {
+      reaction.exec(message);
     }
   }
 
@@ -44,6 +63,14 @@ export class CommandManager {
       "esta": new EstaCommand(),
     };
   }
+
+  private setSoundCommands(): void {
+    let soundFiles = readdirSync('static/mp3');
+    soundFiles.map((filename) => {
+      let name = filename.split('.')[0];
+      this.soundCommands[name] = new SoundCommand(name, `${__dirname}/../static/mp3/${filename}`);
+    });
+  };
 
   private setReactions(): void {
     this.reactions = [

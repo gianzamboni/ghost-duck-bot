@@ -6,7 +6,7 @@ import { PhasmoDataService } from '@services/phasmo-data'
 PhasmoDataService.init();
 
 const client = new Discord.Client();
-const commandManager = new CommandManager("d!");
+const commandManager = new CommandManager();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user?.tag}!`);
