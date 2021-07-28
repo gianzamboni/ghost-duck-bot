@@ -5,5 +5,5 @@ ENV NODE_ENV=production
 WORKDIR /app
 COPY ["package.json", "package-lock.json",".env.prod.json", "./"]
 RUN npm install --production
-COPY build ./build
+RUN npm run build
 CMD ["npm", "run", "start"]
