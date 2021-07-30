@@ -14,6 +14,9 @@ export class EstaCommand extends SoundCommand {
   async exec(message: Message) : Promise<void> {
     this.getSong(message);
     super.exec(message);
+    message.channel.send({
+      files: ['static/gifs/esta.gif']
+     });
   }
 
   private getSong(message: Message): void {

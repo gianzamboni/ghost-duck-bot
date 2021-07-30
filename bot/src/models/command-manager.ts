@@ -60,7 +60,7 @@ export class CommandManager {
   }
 
   private setSoundCommands(): void {
-    let soundFiles = readdirSync('static/mp3');
+    let soundFiles = readdirSync(`static/mp3/`);
     soundFiles.map((filename) => {
       let name = filename.split('.')[0];
       this.soundCommands[name] = new SoundCommand(name, `${__dirname}/../static/mp3/${filename}`);
