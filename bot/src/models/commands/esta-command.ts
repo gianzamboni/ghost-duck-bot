@@ -8,7 +8,7 @@ export class EstaCommand extends SoundCommand {
     super("esta", 'static/mp3/esta/esta.mp3');
 
     this.parameters = ["full | fast"]
-    this.description.addLine('Reproduce una parte de Quiereme de Jean Carlo');
+    this._description.addLine('Reproduce una parte de Quiereme de Jean Carlo');
   }
 
   async exec(message: Message) : Promise<void> {

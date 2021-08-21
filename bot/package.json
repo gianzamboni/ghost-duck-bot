@@ -5,7 +5,8 @@
   "scripts": {
     "build": "cross-env-file -p .env.prod.json webpack --mode=production --config webpack/config.prod.js",
     "dev": "cross-env-file -p .env.dev.json webpack --mode=development  --config webpack/config.dev.js --watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "test": "jest",
     "start": "cross-env-file -p .env.prod.json node --trace-warnings build/main.js",
     "heroku-postbuild": "webpack --mode=production --config webpack/config.prod.js"
   },
@@ -26,6 +27,7 @@
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-import-resolver-webpack": "^0.13.0",
     "nodemon-webpack-plugin": "^4.3.2",
+    "ts-jest": "^27.0.5",
     "ts-loader": "^8.0.11",
     "typescript": "^4.0.5",
     "webpack": "^5.4.0",

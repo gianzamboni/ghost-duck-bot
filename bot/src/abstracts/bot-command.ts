@@ -5,12 +5,16 @@ export abstract class BotCommand {
 
   public readonly name: string;
   public parameters: string[];
-  public description: CommandDescription;
+  protected _description: CommandDescription;
 
   constructor(name: string, parameters: string[] = []) {
     this.name = name;
     this.parameters = parameters;
-    this.description = new CommandDescription();
+    this._description = new CommandDescription();
+  }
+
+  public description(tabs: number = 0) {
+    return this._description.prettyPrint(tabs);
   }
 
   public abstract exec(message: Message) : void;

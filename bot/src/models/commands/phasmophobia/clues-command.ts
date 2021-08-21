@@ -11,22 +11,12 @@ export class CluesCommand extends BotCommand {
 
   constructor() {
     super("clues", ["clue"]);
-    this.description.addLine("Given a space separated set of evidences, I will tell you all possible ghost types that you could be dealing with. The evidence can be any of the following, you may use its short name (which is shown between paranthesis):");
-    
+    this._description.addLine("Given a space separated set of evidences, I will tell you all possible ghost types that you could be dealing with. The evidence can be any of the following, you may use its short name (which is shown between paranthesis):");
+
     this.addEvidenceToDescription();
   }
 
-  async addEvidenceToDescription(): Promise<void> {
-    let posibleEvidence = await Evidences.all();
-    let formattedEvidence = posibleEvidence.map( (evidence) => {
-      let evidenceName = StringFormatter.format(evidence.name, ['capitalize']);
-      let evidenceShort =  StringFormatter.format(evidence.short_name, ['italic']);;
-      return `${evidenceName} (${evidenceShort})`
-    })   
-    this.description.addList(formattedEvidence);
-  };
-
-  async exec(message: Message): Promise<void> {
+  public async exec(message: Message): Promise<void> {
     let args = message.content.split(" ").map((argument) => argument.toLowerCase());
     args.shift();
 
@@ -39,6 +29,17 @@ export class CluesCommand extends BotCommand {
       this.replyWithAdvice(message, args);
     }
   }
+
+  private async addEvidenceToDescription(): Promise<void> {
+    let posibleEvidence = await Evidences.all();
+    let formattedEvidence = posibleEvidence.map( (evidence) => {
+      let evidenceName = StringFormatter.format(evidence.name, ['capitalize']);
+      let evidenceShort =  StringFormatter.format(evidence.short_name, ['italic']);;
+      return `${evidenceName} (${evidenceShort})`
+    })
+    this._description.addList(formattedEvidence);
+  };
+
 
   private async replyWithAdvice(message: Message, evidences: string[]) {
     let posibleGhosts = await GhostTypes.thatGive(evidences, {
@@ -54,7 +55,7 @@ export class CluesCommand extends BotCommand {
     let posibleGhosts = await GhostTypes.thatGive([evidence], {
       attr: ['name']
     });
-    
+
     let evidences = await this.getMissingEvidenceFor(posibleGhosts, [evidence]);
     let renderedMessage = this.renderSimpleListEmbed(posibleGhosts, evidences);
     message.channel.send(renderedMessage);
@@ -74,7 +75,7 @@ export class CluesCommand extends BotCommand {
       missingEvidence.push(evidences)
     }
     return missingEvidence;
-    
+
   }
 
   private renderSimpleListEmbed(ghosts: GhostType[], evidences: Evidence[][]): MessageEmbed {

@@ -13,7 +13,7 @@ export class GhostCommand extends BotCommand {
   constructor() {
     super("ghost", ["ghost"]);
 
-    this.description.addLines([
+    this._description.addLines([
       `I will give you information about the ghost type *ghost_type* that could be useful during a phasmophobia ghost hunt`,
       "This are the ghost types I know:"
     ]);
@@ -22,14 +22,14 @@ export class GhostCommand extends BotCommand {
 
   }
 
-  async addGhostTypeToDescription(): Promise<void> {
+  private async addGhostTypeToDescription(): Promise<void> {
       let ghostTypes = await GhostTypes.all({
         attr: ['name']
       });
 
-      this.description.addList(ghostTypes.map((ghostType) => ghostType.name));
+      this._description.addList(ghostTypes.map((ghostType) => ghostType.name));
   }
-  
+
   async exec(message: Message): Promise<any> {
     let args = message.content.split(' ');
     let reply: string | MessageEmbed = 'You have to tell me which ghost type you need info about';

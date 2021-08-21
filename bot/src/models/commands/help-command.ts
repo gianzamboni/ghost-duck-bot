@@ -48,7 +48,7 @@ export class HelpCommand extends BotCommand {
     }
 
     commandHelpText = commandHelpText.concat(`:\n`);
-    commandHelpText = commandHelpText.concat(command.description.prettyPrint(2));
+    commandHelpText = commandHelpText.concat(command.description(2));
 
     this.helpText = this.helpText.concat(`${commandHelpText}\n`);
   }
