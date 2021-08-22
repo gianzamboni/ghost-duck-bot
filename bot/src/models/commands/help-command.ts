@@ -2,14 +2,14 @@ import { Message } from 'discord.js';
 
 import { BotCommand } from '@abstracts/bot-command'
 import { StringFormatter } from '@models/helpers/string-formatter';
-import { CommandManager } from '@models/command-manager';
+import { Bot } from '@models/bot';
 
 export class HelpCommand extends BotCommand {
 
-  private readonly commandManager: CommandManager;
+  private readonly commandManager: Bot;
   private helpText: string;
 
-  constructor(commandManager: CommandManager) {
+  constructor(commandManager: Bot) {
     super('help', ['I will show you everything I can do']);
     this.commandManager = commandManager;
     this.helpText=''

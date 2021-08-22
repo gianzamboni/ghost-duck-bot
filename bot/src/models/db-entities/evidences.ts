@@ -19,7 +19,6 @@ export class Evidences {
                      WHERE gt.id=$1`
 
     const values = [ ghostType.id ];
-    console.log(queryText)
     return PhasmoDataService.exec<Evidence>(queryText, values);
   }
 

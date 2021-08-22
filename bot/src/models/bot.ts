@@ -10,7 +10,7 @@ import { BotCommand } from "@abstracts/bot-command";
 import { SoundCommand } from './commands/sound-command';
 
 
-export class CommandManager {
+export class Bot {
   public readonly prefix: string;
   public readonly soundPrefix: string;
 
