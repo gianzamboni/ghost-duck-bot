@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
 
 import { BotCommand } from '@abstracts/bot-command';
-import { StringFormatter } from '@helpers/string-formatter'
+import { StringFormatter } from '@models/helpers/string-formatter'
 import { GhostType } from '@interfaces/ghost-type';
 import { Evidence } from '@interfaces/evidence';
 import { Evidences } from '@models/db-entities/evidences';
@@ -33,8 +33,8 @@ export class CluesCommand extends BotCommand {
   private async addEvidenceToDescription(): Promise<void> {
     let posibleEvidence = await Evidences.all();
     let formattedEvidence = posibleEvidence.map( (evidence) => {
-      let evidenceName = StringFormatter.format(evidence.name, ['capitalize']);
-      let evidenceShort =  StringFormatter.format(evidence.short_name, ['italic']);;
+      let evidenceName = new StringFormatter(evidence.name).wordUpper().text;
+      let evidenceShort =  new StringFormatter(evidence.short_name).italic().text;
       return `${evidenceName} (${evidenceShort})`
     })
     this._description.addList(formattedEvidence);
@@ -107,7 +107,7 @@ export class CluesCommand extends BotCommand {
 
     ghosts.forEach((ghost, index) => {
 
-      let formattedEvidence = evidences[index].map((evidence) => StringFormatter.format(evidence.name, ['capitalize']));
+      let formattedEvidence = evidences[index].map((evidence) => new StringFormatter(evidence.name).wordUpper().text);
       if(formattedEvidence.length === 0) formattedEvidence=["None"];
 
       message.addFields([
@@ -123,8 +123,8 @@ export class CluesCommand extends BotCommand {
     let format = ['capitalize', 'italic'];
     if(index % 2 == 1) format.push('bold');
 
-    let ghostName =  StringFormatter.format(ghost.name, format);
-    let capitalizedEvidence = evidences.map((evidence) => StringFormatter.format(evidence.name, format));
+    let ghostName =  new StringFormatter(ghost.name).wordUpper().italic().bold(index % 2 == 1);
+    let capitalizedEvidence = evidences.map((evidence) => new StringFormatter(evidence.name).wordUpper().italic().bold(index % 2 == 1));
     return [ghostName, capitalizedEvidence]
   }
 

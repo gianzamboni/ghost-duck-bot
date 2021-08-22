@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 
 import { BotCommand } from '@abstracts/bot-command'
-import { StringFormatter } from '@helpers/string-formatter';
+import { StringFormatter } from '@models/helpers/string-formatter';
 import { CommandManager } from '@models/command-manager';
 
 export class HelpCommand extends BotCommand {
@@ -16,7 +16,7 @@ export class HelpCommand extends BotCommand {
   }
 
   exec(message: Message): void {
-    this.helpText = StringFormatter.format('pedile ayuda a tu vieja', ['strikethrough']);
+    this.helpText = new StringFormatter('pedile ayuda a tu vieja').strikethrough().text;
     this.helpText = `${this.helpText} you can use any of the following commands by prefixing a "${this.commandManager.prefix}" before them:\n`;
     this.addDescriptionBatch(this.commandManager.prefixedCommands);
 
@@ -36,12 +36,12 @@ export class HelpCommand extends BotCommand {
   }
 
   private addDescription(command: BotCommand){
-    let boldCommandName = StringFormatter.format(command.name, ['bold']);
+    let boldCommandName = new StringFormatter(command.name).bold().text;
     let commandHelpText = `\t${boldCommandName}`;
 
     if(command.parameters){
       let parameters = command.parameters?.map((parameter) => {
-        return StringFormatter.format(parameter, ['italic']);
+        return new StringFormatter(parameter).italic().text;
       }).join(' ');
 
       commandHelpText = commandHelpText.concat(`  ${parameters}`);
@@ -55,12 +55,12 @@ export class HelpCommand extends BotCommand {
 
   private addReactionBatch(reactions: BotCommand[]){
     let reactionNames = reactions.map(reaction => reaction.name).join(', ');
-    this.helpText = this.helpText.concat(`\t\t${StringFormatter.format(reactionNames, ['italic'])}`);
+    this.helpText = this.helpText.concat(`\t\t${new StringFormatter(reactionNames).italic().text}`);
   }
 
   private addNameBatch(commandList: { [key: string]: BotCommand }): void {
     let names = Object.keys(commandList).join(', ');
-    this.helpText = this.helpText.concat(`\t\t${StringFormatter.format(names, ['italic'])}`);
+    this.helpText = this.helpText.concat(`\t\t${new StringFormatter(names).italic().text}`);
   }
 
 }

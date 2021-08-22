@@ -19,7 +19,6 @@
     "lib":["es2020"],
     "paths": {
       "@abstracts/*": ["src/abstracts/*"],
-      "@helpers/*": ["src/helpers/*"],
       "@interfaces/*": ["src/interfaces/*"],
       "@models/*": ["src/models/*"],
       "@services/*": ["src/services/*"],

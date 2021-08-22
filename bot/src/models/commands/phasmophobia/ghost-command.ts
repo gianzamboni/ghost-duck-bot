@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
 
 import { BotCommand } from '@abstracts/bot-command';
-import { StringFormatter } from '@helpers/string-formatter';
+import { StringFormatter } from '@models/helpers/string-formatter';
 import { Evidence } from '@interfaces/evidence';
 import { GhostType } from '@interfaces/ghost-type';
 import { Evidences } from '@models/db-entities/evidences';
@@ -56,7 +56,7 @@ export class GhostCommand extends BotCommand {
       .setTitle(name);
 
     evidences.forEach( (evidence, index) => {
-      let capitalizedEvidence = StringFormatter.format(evidence.name, ['capitalize']);
+      let capitalizedEvidence = new StringFormatter(evidence.name).wordUpper().text;
       message.addField(`Evidence ${index}`, capitalizedEvidence, true);
     })
 
