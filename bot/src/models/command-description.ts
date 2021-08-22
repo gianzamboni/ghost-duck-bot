@@ -12,7 +12,7 @@ export class CommandDescription {
     public addLines(lines: string[]): void {
         this.lines = this.lines.concat(lines);
     }
-    
+
     public addList(list : string[]): void {
         list.map((item) => {
             let newLine = '\t ■ ' + item;
@@ -20,7 +20,7 @@ export class CommandDescription {
         })
     }
 
-    public prettyPrint(prefixedTabs: number): string {
+    public prettyPrint(prefixedTabs: number = 0): string {
         let multipleTabs = '\t'.repeat(prefixedTabs);
         return this.lines.reduce((text, line) => text.concat(`${multipleTabs}${line}\n`), '');
     }

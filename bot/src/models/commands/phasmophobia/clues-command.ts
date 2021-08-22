@@ -6,14 +6,27 @@ import { GhostType } from '@interfaces/ghost-type';
 import { Evidence } from '@interfaces/evidence';
 import { Evidences } from '@models/db-entities/evidences';
 import { GhostTypes } from '@models/db-entities/ghost-types';
+import { CommandDescription } from '@models/command-description';
 
 export class CluesCommand extends BotCommand {
 
   constructor() {
-    super("clues", ["clue"]);
-    this._description.addLine("Given a space separated set of evidences, I will tell you all possible ghost types that you could be dealing with. The evidence can be any of the following, you may use its short name (which is shown between paranthesis):");
+    super("clues", ["clueList"]);
+  }
 
-    this.addEvidenceToDescription();
+  public async getDescription(): Promise<CommandDescription> {
+    let description = new CommandDescription();
+    description.addLine("Given a space separated set of evidences, I will tell you all possible ghost types that you could be dealing with. The evidence can be any of the following, you may use its short name (which is shown between paranthesis):");
+
+    let evidenceList = (await Evidences.all()).map( (evidence) => {
+      let evidenceName = new StringFormatter(evidence.name).wordUpper().text;
+      let evidenceShort =  new StringFormatter(evidence.short_name).italic().text;
+      return `${evidenceName} (${evidenceShort})`
+    })
+
+    description.addList(evidenceList);
+
+    return description;
   }
 
   public async exec(message: Message): Promise<void> {
@@ -29,17 +42,6 @@ export class CluesCommand extends BotCommand {
       this.replyWithAdvice(message, args);
     }
   }
-
-  private async addEvidenceToDescription(): Promise<void> {
-    let posibleEvidence = await Evidences.all();
-    let formattedEvidence = posibleEvidence.map( (evidence) => {
-      let evidenceName = new StringFormatter(evidence.name).wordUpper().text;
-      let evidenceShort =  new StringFormatter(evidence.short_name).italic().text;
-      return `${evidenceName} (${evidenceShort})`
-    })
-    this._description.addList(formattedEvidence);
-  };
-
 
   private async replyWithAdvice(message: Message, evidences: string[]) {
     let posibleGhosts = await GhostTypes.thatGive(evidences, {

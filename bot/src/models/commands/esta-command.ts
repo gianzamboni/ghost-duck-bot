@@ -1,3 +1,4 @@
+import { CommandDescription } from "@models/command-description";
 import { Message } from "discord.js";
 
 import { SoundCommand } from "./sound-command";
@@ -8,10 +9,15 @@ export class EstaCommand extends SoundCommand {
     super("esta", 'static/mp3/esta/esta.mp3');
 
     this.parameters = ["full | fast"]
-    this._description.addLine('Reproduce una parte de Quiereme de Jean Carlo');
   }
 
-  async exec(message: Message) : Promise<void> {
+  public getDescription() : CommandDescription {
+    let description = new CommandDescription();
+    description.addLine('Reproduce una parte de Quiereme de Jean Carlo');
+    return description;
+  }
+
+  public async exec(message: Message) : Promise<void> {
     this.getSong(message);
     super.exec(message);
     message.channel.send({

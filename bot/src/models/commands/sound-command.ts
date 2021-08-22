@@ -14,7 +14,7 @@ export class SoundCommand extends BotCommand {
     this.bannedUsers = {};
   }
 
-  async exec(message: Message) : Promise<void> {
+  public async exec(message: Message) : Promise<void> {
     if(!message.member?.voice.channel) {
       message.channel.send("Deja de trolear, forro. Necesitas estar conectado al canal de voz para usarme");
     } else if (this.bannedUsers[message.author.id]) {

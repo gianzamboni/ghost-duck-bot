@@ -1,5 +1,6 @@
-import { BotCommand } from '@abstracts/bot-command';
 import { Message } from 'discord.js';
+import { BotCommand } from '@abstracts/bot-command';
+
 
 export class ReactionCommand extends BotCommand {
   private readonly regex: RegExp;
@@ -10,7 +11,7 @@ export class ReactionCommand extends BotCommand {
     this.filename = filename;
   }
 
-  exec(message: Message) {
+  public exec(message: Message) {
     if (message.content.match(this.regex)) {
       message.channel.send({
         files: [this.filename]

@@ -6,31 +6,32 @@ import { Evidence } from '@interfaces/evidence';
 import { GhostType } from '@interfaces/ghost-type';
 import { Evidences } from '@models/db-entities/evidences';
 import { GhostTypes } from '@models/db-entities/ghost-types';
+import { CommandDescription } from '@models/command-description';
 
 
 export class GhostCommand extends BotCommand {
 
   constructor() {
     super("ghost", ["ghost"]);
+  }
 
-    this._description.addLines([
+  public async getDescription() : Promise<CommandDescription> {
+    let description = new CommandDescription();
+    description.addLines([
       `I will give you information about the ghost type *ghost_type* that could be useful during a phasmophobia ghost hunt`,
       "This are the ghost types I know:"
     ]);
 
-    this.addGhostTypeToDescription();
+    let ghostTypes = await GhostTypes.all({
+      attr: ['name']
+    });
+    description.addList(ghostTypes.map((ghostType) => ghostType.name));
+
+    return description;
 
   }
 
-  private async addGhostTypeToDescription(): Promise<void> {
-      let ghostTypes = await GhostTypes.all({
-        attr: ['name']
-      });
-
-      this._description.addList(ghostTypes.map((ghostType) => ghostType.name));
-  }
-
-  async exec(message: Message): Promise<any> {
+  public async exec(message: Message): Promise<any> {
     let args = message.content.split(' ');
     let reply: string | MessageEmbed = 'You have to tell me which ghost type you need info about';
 

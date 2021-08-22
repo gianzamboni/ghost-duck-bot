@@ -15,10 +15,10 @@ export class HelpCommand extends BotCommand {
     this.helpText=''
   }
 
-  exec(message: Message): void {
+  public async exec(message: Message) {
     this.helpText = new StringFormatter('pedile ayuda a tu vieja').strikethrough().text;
     this.helpText = `${this.helpText} you can use any of the following commands by prefixing a "${this.commandManager.prefix}" before them:\n`;
-    this.addDescriptionBatch(this.commandManager.prefixedCommands);
+    await this.addDescriptionBatch(this.commandManager.prefixedCommands);
 
     this.helpText = this.helpText.concat(`\nI also react to some of your messages by sending a gif if they contain some of the following strings (or similiar):\n`);
     this.addReactionBatch(this.commandManager.reactions);
@@ -29,13 +29,13 @@ export class HelpCommand extends BotCommand {
     });
   }
 
-  private addDescriptionBatch(commandList: { [key: string]: BotCommand }): void {
+  private async addDescriptionBatch(commandList: { [key: string]: BotCommand }) {
     for (let command in commandList) {
-      this.addDescription(commandList[command]);
+      await this.addDescription(commandList[command]);
     }
   }
 
-  private addDescription(command: BotCommand){
+  private async addDescription(command: BotCommand){
     let boldCommandName = new StringFormatter(command.name).bold().text;
     let commandHelpText = `\t${boldCommandName}`;
 
@@ -48,7 +48,7 @@ export class HelpCommand extends BotCommand {
     }
 
     commandHelpText = commandHelpText.concat(`:\n`);
-    commandHelpText = commandHelpText.concat(command.description(2));
+    commandHelpText = commandHelpText.concat((await command.getDescription()).prettyPrint(2));
 
     this.helpText = this.helpText.concat(`${commandHelpText}\n`);
   }
