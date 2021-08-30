@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 
 import { BotCommand } from '@abstracts/bot-command';
 import { StringFormatter } from '@models/helpers/string-formatter';
@@ -18,7 +18,7 @@ export class GhostCommand extends BotCommand {
   public async getDescription() : Promise<CommandDescription> {
     let description = new CommandDescription();
     description.addLines([
-      `I will give you information about the ghost type *ghost_type* that could be useful during a phasmophobia ghost hunt`,
+      `I will give you information about the ghost type *ghost_type* that could be useful during a phasmophobia ghost hunt.`,
       "This are the ghost types I know:"
     ]);
 
@@ -31,23 +31,14 @@ export class GhostCommand extends BotCommand {
 
   }
 
-  public async exec(message: Message): Promise<any> {
-    let args = message.content.split(' ');
-    let reply: string | MessageEmbed = 'You have to tell me which ghost type you need info about';
+  public async exec(args: string[]): Promise<string | MessageEmbed > {
+    if(args.length === 0) return 'No entendiste nada, tenés que decirme qué fantasma querés.';
 
-    if(args.length < 2) {
-      message.reply('tenés que decirme qué fantasma querés ');
-    } else {
-      let ghostType = await GhostTypes.get(args[1].toLowerCase());
-      reply = "La cagaste amig@, no hay ningún fantasma que se llame así";
+    let ghostType = await GhostTypes.get(args[0].toLowerCase());
+    if(!ghostType) return "La cagaste amig@, no hay ningún fantasma que se llame así";
 
-      if(ghostType){
-        let ghostEvidence = await Evidences.givenBy(ghostType);
-        reply = this.generateEmbedFor(ghostType, ghostEvidence);
-      }
-
-      message.channel.send(reply);
-    }
+    let ghostEvidence = await Evidences.givenBy(ghostType);
+    return this.generateEmbedFor(ghostType, ghostEvidence);
   }
 
   private generateEmbedFor(ghostType: GhostType, evidences: Evidence[]): MessageEmbed {

@@ -1,6 +1,7 @@
 import { Message, VoiceChannel } from "discord.js";
 
 import { BotCommand } from "@abstracts/bot-command";
+import { CommandDescription } from "@models/command-description";
 
 export class SoundCommand extends BotCommand {
 
@@ -23,6 +24,10 @@ export class SoundCommand extends BotCommand {
       this.banUser(message.author.id);
       this.playSoundOn(message.member.voice.channel);
     }
+  }
+
+  public getDescription(): CommandDescription {
+    return new CommandDescription().addLine(`Reproduzco el sonido ${this.filename}`);
   }
 
   private banUser(user: string) {

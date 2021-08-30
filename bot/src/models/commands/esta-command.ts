@@ -1,8 +1,8 @@
 import { CommandDescription } from "@models/command-description";
 import { Message } from "discord.js";
-
 import { SoundCommand } from "./sound-command";
 
+// Convert to a mixed media command (Extend from MixedMediaCommand)
 export class EstaCommand extends SoundCommand {
 
   constructor()   {

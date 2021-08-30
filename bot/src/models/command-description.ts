@@ -5,19 +5,22 @@ export class CommandDescription {
         this.lines = [];
     }
 
-    public addLine(line: string): void {
+    public addLine(line: string): CommandDescription {
         this.lines.push(line);
+        return this;
     }
 
-    public addLines(lines: string[]): void {
+    public addLines(lines: string[]): CommandDescription {
         this.lines = this.lines.concat(lines);
+        return this;
     }
 
-    public addList(list : string[]): void {
+    public addList(list : string[]): CommandDescription {
         list.map((item) => {
             let newLine = '\t ■ ' + item;
             this.addLine(newLine);
         })
+        return this;
     }
 
     public prettyPrint(prefixedTabs: number = 0): string {

@@ -1,5 +1,5 @@
-import { Message } from 'discord.js';
 import { CommandDescription } from '@models/command-description';
+import { MessageEmbed } from 'discord.js';
 
 export abstract class BotCommand {
 
@@ -11,9 +11,10 @@ export abstract class BotCommand {
     this.parameters = parameters;
   }
 
-  public getDescription() : CommandDescription | Promise<CommandDescription> {
-    return new CommandDescription();
-  };
+  public abstract getDescription() : CommandDescription | Promise<CommandDescription>;
+  public abstract exec(args: any) : Promise<any> | void;
+}
 
-  public abstract exec(message: Message) : void;
+export abstract class TextCommand extends BotCommand {
+  public abstract exec(args: string[]) : Promise<string | MessageEmbed >;
 }

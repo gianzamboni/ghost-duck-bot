@@ -1,32 +1,47 @@
-import { Message } from 'discord.js';
-
-import { BotCommand } from '@abstracts/bot-command'
+import { BotCommand, TextCommand } from '@abstracts/bot-command'
 import { StringFormatter } from '@models/helpers/string-formatter';
 import { Bot } from '@models/bot';
+import { CommandDescription } from '@models/command-description';
 
-export class HelpCommand extends BotCommand {
+export class HelpCommand extends TextCommand {
 
-  private readonly commandManager: Bot;
+  private readonly bot: Bot;
   private helpText: string;
 
-  constructor(commandManager: Bot) {
-    super('help', ['I will show you everything I can do']);
-    this.commandManager = commandManager;
+  constructor(bot: Bot) {
+    super('help', ['command']);
+    this.bot = bot;
     this.helpText=''
   }
 
-  public async exec(message: Message) {
+  public async exec(args : string[]): Promise<string> {
+    if(args.length == 0) return await this.fullDescription();
+    return await this.descriptionFor(args[0]);
+  }
+
+  public getDescription(): CommandDescription {
+    return new CommandDescription().addLine('Te explico que hace cada comando');
+  }
+
+  private async descriptionFor(commandName: string) {
+    let command: BotCommand = this.bot.textCommands[commandName];
+    if(!command) return 'No se hacer eso';
+
+    // TODO: Make sound and reaction to respond with gifs and sound name
+    return (await command.getDescription()).prettyPrint(0);
+  }
+
+  private async fullDescription(): Promise<string> {
     this.helpText = new StringFormatter('pedile ayuda a tu vieja').strikethrough().text;
-    this.helpText = `${this.helpText} you can use any of the following commands by prefixing a "${this.commandManager.prefix}" before them:\n`;
-    await this.addDescriptionBatch(this.commandManager.prefixedCommands);
+    this.helpText = `${this.helpText} you can use any of the following commands by prefixing a "${this.bot.prefix}" before them:\n`;
+    await this.addDescriptionBatch(this.bot.textCommands);
 
     this.helpText = this.helpText.concat(`\nI also react to some of your messages by sending a gif if they contain some of the following strings (or similiar):\n`);
-    this.addReactionBatch(this.commandManager.reactions);
+    this.addReactionBatch(this.bot.reactions);
     this.helpText = this.helpText.concat(`\nTambien puedo reproducir estos sonido:\n`);
-    this.addNameBatch(this.commandManager.soundCommands);
-    message.reply(this.helpText, {
-      split: true
-    });
+    this.addNameBatch(this.bot.soundCommands);
+
+    return this.helpText;
   }
 
   private async addDescriptionBatch(commandList: { [key: string]: BotCommand }) {
