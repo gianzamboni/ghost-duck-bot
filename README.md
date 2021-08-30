@@ -11,9 +11,11 @@ By default, all the commands of this bot must be prefixed with a "d!"). It has 3
  * **tuvieja**: It insults your mom
 
 I also react to some of your messages by sending a gif if they contain some of the following strings (or similiar):
+        
         awa, ewe, iwi, owo, uwu, si., no., fire, aaaah
+
 Tambien puedo reproducir estos sonido:
+        
         aburrido, amiga, bardo, buenisima, esta, hablen, laburar, laburenloco, lpm, piroyansky, proxima, queso 
- I also react to some of your messages by sending a gif if they contain some of the following strings (or similiar):
  
  ### Warning: Be careful, Rubber Duck Ghost is a very impolite bot. If you do something he doesn't like it will insult you in spanish!
