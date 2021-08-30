@@ -7,7 +7,7 @@ import { ReactionCommand } from '@models/commands/reaction-command';
 import { VersionCommand } from "@models/commands/version-command";
 import { TuViejaCommand } from "@models/commands/tuvieja-command";
 import { BotCommand } from "@abstracts/bot-command";
-import { SoundCommand } from './commands/sound-command';
+import { SoundCommand } from './commands/sound-command/sound-command';
 
 
 export class CommandManager {
@@ -21,7 +21,7 @@ export class CommandManager {
   public soundCommands: { [key: string]: BotCommand } = {};
 
   constructor(){
-    this.version = 'v3.1.0';
+    this.version = 'v3.1.1';
     this.prefix = 'd!';
     this.soundPrefix = 's!';
     this.setPrefixedCommands();
@@ -31,7 +31,7 @@ export class CommandManager {
 
   public process(message: Message): void {
     if(message.author.bot) return;
-
+    console.log(message.content);
     if (message.content.startsWith(this.prefix)) this.processCommandFrom(this.prefixedCommands, message);
     else if (message.content.startsWith(this.soundPrefix)) this.processCommandFrom(this.soundCommands, message);
     else this.processReaction(message);
@@ -40,6 +40,7 @@ export class CommandManager {
   private processCommandFrom(commandDict: { [key: string]: BotCommand }, message: Message) : void {
     let args = message.content.substring(this.prefix.length).split(' ');
     let command = args.shift();
+    console.log(command);
     if(command && commandDict[command]) {
       commandDict[command].exec(message);
     } else {

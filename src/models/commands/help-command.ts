@@ -24,9 +24,7 @@ export class HelpCommand extends BotCommand {
     this.addReactionBatch(this.commandManager.reactions);
     this.helpText = this.helpText.concat(`\nTambien puedo reproducir estos sonido:\n`);
     this.addNameBatch(this.commandManager.soundCommands);
-    message.reply(this.helpText, {
-      split: true
-    });
+    message.reply(this.helpText);
   }
 
   private addDescriptionBatch(commandList: { [key: string]: BotCommand }): void {

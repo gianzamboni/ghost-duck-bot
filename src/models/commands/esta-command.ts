@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 
-import { SoundCommand } from "./sound-command";
+import { SoundCommand } from "./sound-command/sound-command";
 
 export class EstaCommand extends SoundCommand {
 

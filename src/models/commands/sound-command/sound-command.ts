@@ -1,5 +1,14 @@
 import { Message, VoiceChannel } from "discord.js";
+import { joinVoiceChannel,
+	createAudioPlayer,
+	createAudioResource,
+	entersState,
+	StreamType,
+	AudioPlayerStatus,
+	VoiceConnectionStatus
+} from '@discordjs/voice';
 
+import { ConnectionManager } from './connection-manager';
 import { BotCommand } from "@abstracts/bot-command";
 
 export class SoundCommand extends BotCommand {
@@ -21,7 +30,7 @@ export class SoundCommand extends BotCommand {
       message.channel.send("Ya se que el comando es lo mejor que hay, pero dejá de espamearlo cap@");
     } else {
       this.banUser(message.author.id);
-      this.playSoundOn(message.member.voice.channel);
+      this.playSoundOn(message.member.voice.channel as VoiceChannel);
     }
   }
 
@@ -34,11 +43,25 @@ export class SoundCommand extends BotCommand {
   }
 
   protected async playSoundOn(channel: VoiceChannel) {
-    const connection = await channel.join();
-    const dispacther = connection.play(this.filename);
-    dispacther.on('finish', () => {
-      connection.disconnect();
+    const connection = await joinVoiceChannel({
+      channelId: channel.id,
+      guildId: channel.guild.id,
+      adapterCreator: ConnectionManager.create(channel)
     });
+
+    await entersState(connection, VoiceConnectionStatus.Ready, 30e3);
+
+    const player = createAudioPlayer();
+
+    await connection.subscribe(player);
+
+    const resource = createAudioResource(this.filename, {
+      inputType: StreamType.Arbitrary
+    });
+
+    player.play(resource);
+    await entersState(player, AudioPlayerStatus.Playing, 5e3);
+
   }
 
 };
