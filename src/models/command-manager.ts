@@ -5,6 +5,7 @@ import { HelpCommand } from '@models/commands/help-command';
 import { EstaCommand } from '@models/commands/esta-command';
 import { ReactionCommand } from '@models/commands/reaction-command';
 import { VersionCommand } from "@models/commands/version-command";
+import { TuViejaCommand } from "@models/commands/tuvieja-command";
 import { BotCommand } from "@abstracts/bot-command";
 import { SoundCommand } from './commands/sound-command';
 
@@ -20,7 +21,7 @@ export class CommandManager {
   public soundCommands: { [key: string]: BotCommand } = {};
 
   constructor(){
-    this.version = 'v3.0.0';
+    this.version = 'v3.1.0';
     this.prefix = 'd!';
     this.soundPrefix = 's!';
     this.setPrefixedCommands();
@@ -57,6 +58,7 @@ export class CommandManager {
       "help": new HelpCommand(this),
       "version": new VersionCommand(this.version),
       "esta": new EstaCommand(),
+      "tuvieja": new TuViejaCommand()
     };
   }
 
