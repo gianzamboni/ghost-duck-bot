@@ -1,6 +1,6 @@
 {
   "name": "ghost-duck-bot",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "A bot for nodejs",
   "scripts": {
     "build": "cross-env-file -p .env.prod.json webpack --mode=production --config webpack/config.prod.js",

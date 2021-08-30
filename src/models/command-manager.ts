@@ -4,13 +4,14 @@ import { Message } from 'discord.js';
 import { HelpCommand } from '@models/commands/help-command';
 import { EstaCommand } from '@models/commands/esta-command';
 import { ReactionCommand } from '@models/commands/reaction-command';
-import { CluesCommand } from "@models/commands/phasmophobia/clues-command";
-import { GhostCommand } from '@models/commands/phasmophobia/ghost-command';
+import { VersionCommand } from "@models/commands/version-command";
 import { BotCommand } from "@abstracts/bot-command";
 import { SoundCommand } from './commands/sound-command';
 
 
 export class CommandManager {
+  private readonly version : string;
+
   public readonly prefix: string;
   public readonly soundPrefix: string;
 
@@ -19,6 +20,7 @@ export class CommandManager {
   public soundCommands: { [key: string]: BotCommand } = {};
 
   constructor(){
+    this.version = 'v3.0.0';
     this.prefix = 'd!';
     this.soundPrefix = 's!';
     this.setPrefixedCommands();
@@ -53,8 +55,7 @@ export class CommandManager {
   private setPrefixedCommands() : void {
     this.prefixedCommands = {
       "help": new HelpCommand(this),
-      "clues": new CluesCommand(),
-      "ghost": new GhostCommand(),
+      "version": new VersionCommand(this.version),
       "esta": new EstaCommand(),
     };
   }

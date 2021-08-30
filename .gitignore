@@ -1,0 +1,4 @@
+build
+static
+.env*
+node_modules

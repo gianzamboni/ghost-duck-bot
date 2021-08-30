@@ -1,9 +1,6 @@
 import Discord, { Message } from 'discord.js';
 
 import { CommandManager } from '@models/command-manager'
-import { PhasmoDataService } from '@services/phasmo-data'
-
-PhasmoDataService.init();
 
 const client = new Discord.Client();
 const commandManager = new CommandManager();
