@@ -1,15 +1,18 @@
-import { Message } from 'discord.js';
+import { Message, TextChannel } from "discord.js";
 
-import { BotCommand } from '@abstracts/bot-command'
+import { BotCommand } from "@abstracts/bot-command";
 
-export class TuViejaCommand extends BotCommand {
+export interface EstaArgs {
+  message: string;
+  channel: TextChannel;
+}
 
-  private readonly insultos: string[];
+export class TuViejaCommand implements BotCommand {
+
+  private readonly _insults: string[];
 
   constructor() {
-    super('tuvieja', []);
-    this.description.addLine('Digo algo sobre tu vieja');
-    this.insultos = [
+    this._insults = [
       'tu vieja vino el otro dia y ahora vas a tener un hermanito mitad robot',
       'tu vieja es tan fea que la usaron de referencia para los fantasmas de phasmophobia',
       'tu vieja es como la capa de ozono, esta cada dia más abierta',
@@ -28,7 +31,11 @@ export class TuViejaCommand extends BotCommand {
     ]
   }
 
-  public exec(message : Message): void {
-    message.reply(this.insultos[Math.floor(Math.random()*this.insultos.length)]);
+  get description(): string {
+    return 'Insulto a tu vieja';
+  }
+
+  async reply(message: Message) : Promise<void> {
+    message.reply(this._insults[Math.floor(Math.random()*this._insults.length)]);
   }
 }

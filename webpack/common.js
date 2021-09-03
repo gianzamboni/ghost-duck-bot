@@ -23,13 +23,13 @@ module.exports = {
     resolve: {
         extensions: [ '.ts', '.js' ],
         alias: {
-            "@abstracts": path.resolve(__dirname, '../src/abstracts'),
+            "@abstract": path.resolve(__dirname, '../src/abstract'),
             "@helpers": path.resolve(__dirname, '../src/helpers'),
-            "@interfaces": path.resolve(__dirname, '../src/interfaces'),
-            "@models": path.resolve(__dirname, '../src/models'),
+            "@managers": path.resolve(__dirname, '../src/managers'),
+            "@resources": path.resolve(__dirname, '../src/resources'),
             "@services": path.resolve(__dirname, '../src/services')
         }
     },
-    
+
     target: "node"
 }
