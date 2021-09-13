@@ -3,9 +3,9 @@ import { Message } from 'discord.js';
 
 export class VersionCommand extends BotCommand {
 
-  private version: string;
+  private version: String;
 
-  constructor(version: string) {
+  constructor(version: String) {
     super('version');
     this.version = version;
     this.description.addLine('Te digo que version estas usando');
@@ -14,4 +14,5 @@ export class VersionCommand extends BotCommand {
   public exec(message: Message) {
     message.reply(`estás usando la version ${this.version} del bot.`);
   }
+
 }

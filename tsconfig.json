@@ -20,8 +20,8 @@
     "paths": {
       "@abstracts/*": ["src/abstracts/*"],
       "@helpers/*": ["src/helpers/*"],
-      "@interfaces/*": ["src/interfaces/*"],
-      "@models/*": ["src/models/*"],
+      "@managers/*": ["src/managers/*"],
+      "@resources/*": ["src/resources/*"],
       "@services/*": ["src/services/*"],
     },
     "resolveJsonModule": true,
