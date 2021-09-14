@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gianzamboni/basic-template.git"
+    "url": "git+https://github.com/gianzamboni/ghost-duck-bot.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gianzamboni/basic-template/issues"
+    "url": "https://github.com/gianzamboni/ghost-duck-bote/issues"
   },
-  "homepage": "https://github.com/gianzamboni/basic-template#readme",
+  "homepage": "https://github.com/gianzamboni/ghost-duck-bot#readme",
   "devDependencies": {
     "@types/node": "^16.7.6",
     "eslint-import-resolver-alias": "^1.1.2",
