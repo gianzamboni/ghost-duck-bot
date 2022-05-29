@@ -31,6 +31,7 @@ export class GhostDuckBot {
 
   public process(message: Message): void {
     if(message.author.bot) return;
+    if(process.env.ENV === 'production' && message.channel.id == '839157716513456179') return;
 
     let content = message.content;
     if (content.startsWith(this._commandPrefix)) {
@@ -52,7 +53,7 @@ export class GhostDuckBot {
 
   private setHelpTexts() : void {
 
-    this._commandManager.help.registerWithDescription('Comandos básicos',
+    this._commandManager.help.registerWithDescription('Comandos básicos\t\t\t\t\t Prefijo: d!',
       `Los usás poniendo una "${this._commandPrefix}" de pato adelante y son los siguientes:`,
       this._commandManager.commandDescriptions);
 
