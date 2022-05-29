@@ -16,7 +16,7 @@ export class GhostDuckBot {
   private _soundManager: SoundManager;
 
   constructor(){
-    this._version = 'v4.0.0';
+    this._version = 'v4.0.1';
 
     this._commandPrefix = 'd!';
     this._soundPrefix = 's!';
@@ -31,7 +31,7 @@ export class GhostDuckBot {
 
   public process(message: Message): void {
     if(message.author.bot) return;
-    if(process.env.ENV === 'production' && message.channel.id == '839157716513456179') return;
+    if(process.env.NODE_ENV === 'production' && message.channel.id === '839157716513456179') return;
 
     let content = message.content;
     if (content.startsWith(this._commandPrefix)) {
@@ -53,11 +53,11 @@ export class GhostDuckBot {
 
   private setHelpTexts() : void {
 
-    this._commandManager.help.registerWithDescription('Comandos básicos\t\t\t\t\t Prefijo: d!',
+    this._commandManager.help.registerWithDescription('Comandos básicos\t\t d!',
       `Los usás poniendo una "${this._commandPrefix}" de pato adelante y son los siguientes:`,
       this._commandManager.commandDescriptions);
 
-    this._commandManager.help.register('Soniditos',
+    this._commandManager.help.register('Soniditos\t\t s!',
       `Los usás poniendo una ${this._soundPrefix} de sonidito adelante y son los siguientes:`,
       ':musical_note:',
       this._soundManager.sounds)

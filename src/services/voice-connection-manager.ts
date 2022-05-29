@@ -1,4 +1,4 @@
-import { entersState, joinVoiceChannel, VoiceConnection, VoiceConnectionDisconnectReason, VoiceConnectionStatus } from "@discordjs/voice";
+import { DiscordGatewayAdapterCreator, entersState, joinVoiceChannel, VoiceConnection, VoiceConnectionDisconnectReason, VoiceConnectionStatus } from "@discordjs/voice";
 import { Collection, Snowflake, VoiceChannel } from "discord.js";
 import { promisify } from "util";
 
@@ -31,7 +31,7 @@ export class VoiceConnectionManager {
     let newConnection: VoiceConnection = joinVoiceChannel({
       channelId: channel.id,
       guildId: channel.guild.id,
-      adapterCreator: channel.guild.voiceAdapterCreator,
+      adapterCreator: channel.guild.voiceAdapterCreator as DiscordGatewayAdapterCreator,
     });
 
     BotLogger.log.info(`Joined to voice channel "${channel.name}"`);

@@ -14,6 +14,7 @@ const client = new Discord.Client({
 });
 
 client.on('ready', () => {
+  BotLogger.log.info(`Running in ${process.env.NODE_ENV} mode`);
   BotLogger.log.info(`Logged in as ${client.user?.tag} in ${client.guilds.cache.size} guilds:`);
   for(let [ _ , guild ] of client.guilds.cache) {
     BotLogger.log.info(`\t* ${guild.name}`);
