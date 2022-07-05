@@ -31,7 +31,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.7.0",
+    "@discordjs/opus": "^0.8.0",
     "@discordjs/voice": "^0.9.0",
     "cross-env-file": "^1.0.0",
     "discord-api-types": "^0.32.1",
